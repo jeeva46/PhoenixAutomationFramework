@@ -55,7 +55,7 @@ jobs:
         cache: maven
     
     - name: To run the Automation framework
-      run: mvn test -Denv="${{ github.event.inputs.env }}" -DsuiteXmlFile= "${{ github.event.inputs.suite }}"
+      run: mvn clean test -Denv="${{ github.event.inputs.env }}" -DsuiteXmlFile="${{ github.event.inputs.suite }}"
 
 
     - name: upload build artifact
