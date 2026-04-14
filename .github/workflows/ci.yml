@@ -15,7 +15,7 @@ on:
         description: Environment
         type: choice
         options:
-          - env
+          - qa
           - dev
           - uat
         default: qa
