@@ -10,6 +10,7 @@ import org.testng.annotations.Test;
 
 import com.api.pojo.UserCredentials;
 import com.api.utils.ConfigManager;
+import com.api.utils.SpecUtil;
 
 import static com.api.utils.ConfigManager.*;
 
@@ -26,22 +27,14 @@ public class LoginAPITest {
 		UserCredentials userCred = new UserCredentials("iamfd", "password");
 		
 		given()
-		.baseUri(getProperty("BASE_URI"))
-		.and()
-		.contentType(ContentType.JSON)
-		.accept(ContentType.JSON)
-		.body(userCred)
-		.log().uri()
-		.log().headers()
-		.log().body()
+		.spec(SpecUtil.requestSpec(userCred))
 		.when()
 		.post("login")
 		.then()
-		.statusCode(200)
-		.time(lessThan(1000L))
+		.spec(SpecUtil.responseSpec_OK())
 		.body("message", equalTo("Success"))
-		.body(matchesJsonSchemaInClasspath("json-schema/login-schema.json"))
-		.log().all();
+		.body(matchesJsonSchemaInClasspath("json-schema/login-schema.json"));
+		
 		
 		
 	}

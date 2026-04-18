@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 import com.api.constant.Role;
 import com.api.utils.AuthTokenGenerator;
 import com.api.utils.ConfigManager;
+import com.api.utils.SpecUtil;
 
 import static io.restassured.RestAssured.*;
 
@@ -18,17 +19,13 @@ public class MasterAPITest {
 	public void masterAPITest() throws IOException {
 		
 		given()
-		.baseUri(ConfigManager.getProperty("BASE_URI"))
-		.header("Authorization",AuthTokenGenerator.getToken(Role.FD))
-		.contentType("")
+		.spec(SpecUtil.requestSpecAuth(Role.FD))
 		.when()
 		.post("/master")
 		.then()
-		.statusCode(200)
-		.time(Matchers.lessThan(1000L))
+		.spec(SpecUtil.responseSpec_OK())
 		.body("message", Matchers.equalTo("Success"))
-		.body("data", Matchers.hasKey("mst_oem"))
-		.log().all();
+		.body("data", Matchers.hasKey("mst_oem"));
 		
 	
 	}
@@ -37,14 +34,11 @@ public class MasterAPITest {
 	public void masterAPINegativeTest() throws IOException {
 		
 		given()
-		.baseUri(ConfigManager.getProperty("BASE_URI"))
-		.contentType("")
+		.spec(SpecUtil.requestSpec())
 		.when()
 		.post("/master")
 		.then()
-		.statusCode(401)
-		.log().all();
-	
+		.spec(SpecUtil.responseSpec_HTML(401));
 	}
 
 }
