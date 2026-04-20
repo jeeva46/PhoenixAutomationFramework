@@ -20,7 +20,7 @@ import static io.restassured.module.jsv.JsonSchemaValidator.*;
 public class LoginAPITest {
 	
 	
-	@Test
+	@Test(description = "verify login api test")
 	public void LoginAPITest() throws IOException {
 		
 		

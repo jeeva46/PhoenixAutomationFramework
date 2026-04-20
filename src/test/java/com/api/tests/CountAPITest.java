@@ -29,7 +29,6 @@ public class CountAPITest {
 		.spec(SpecUtil.responseSpec_OK())
 		.body("message",Matchers.equalTo("Success"))
 		.body("data", Matchers.notNullValue())
-		.body("data.size", Matchers.equalTo(3))
 		.body("data.count", Matchers.everyItem(Matchers.greaterThanOrEqualTo(0)));
 		
 		

@@ -51,6 +51,24 @@ public class SpecUtil {
 		
 	}
 	
+public static RequestSpecification requestSpec(Object obj,Role role) throws IOException {
+		
+		RequestSpecification requestSpecification = new RequestSpecBuilder()
+		.setBaseUri(ConfigManager.getProperty("BASE_URI"))
+		.addHeader("Authorization", AuthTokenGenerator.getToken(role))
+		.setAccept(ContentType.JSON)
+		.setContentType(ContentType.JSON)
+		.setBody(obj)
+		.log(LogDetail.URI)
+		.log(LogDetail.HEADERS)
+		.log(LogDetail.METHOD)
+		.log(LogDetail.BODY)
+		.build();
+		
+		return requestSpecification;
+		
+	}
+	
 	public static RequestSpecification requestSpecAuth(Role role) throws IOException {
 		
 		RequestSpecification requestSpecification = new RequestSpecBuilder()
