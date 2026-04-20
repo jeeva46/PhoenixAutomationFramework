@@ -22,7 +22,7 @@ on:
         default: qa
         required: true
 
-      suite:
+      suiteXmlFile:
         description: TestNG SuiteFile
         type: choice
         options:
@@ -47,8 +47,14 @@ jobs:
         distribution: 'temurin'
         cache: maven
     
+    - name: default value for execution
+      id: default
+      run: |
+        echo "suiteXmlFile=${{ github.event.inputs.suiteXmlFile || 'testng.xml' }}" >> $GITHUB_OUTPUT
+        echo "env=${{ github.event.inputs.env || 'qa' }}" >> $GITHUB_OUTPUT
+    
     - name: To run the Automation framework
-      run: mvn test -Denv="${{ github.event.inputs.env }}" -DsuiteXmlFile="${{ github.event.inputs.suite }}"
+      run: mvn test -Denv="${{ steps.default.outputs.env }}" -DsuiteXmlFile="${{ steps.default.outputs.suiteXmlFile }}"
 
 
     - name: upload build artifact
