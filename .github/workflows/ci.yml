@@ -54,7 +54,7 @@ jobs:
         echo "env=${{ github.event.inputs.env || 'qa' }}" >> $GITHUB_OUTPUT
     
     - name: To run the Automation framework
-      run: mvn test -Denv="${{ steps.default.outputs.qa }}" -DsuiteXmlFile="${{ steps.default.outputs.suiteXmlFile }}"
+      run: mvn test -Denv="${{ steps.default.outputs.env }}" -DsuiteXmlFile="${{ steps.default.outputs.suiteXmlFile }}"
 
 
     - name: upload build artifact
