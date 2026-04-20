@@ -50,7 +50,7 @@ jobs:
     - name: default value for execution
       id: default
       run: |
-        echo "suiteXmlFile=${{ github.event.inputs.suite || 'suiteXmlFile.xml' }}" >> $GITHUB_OUTPUT
+        echo "suiteXmlFile=${{ github.event.inputs.suiteXmlFile || 'testng.xml' }}" >> $GITHUB_OUTPUT
         echo "env=${{ github.event.inputs.env || 'qa' }}" >> $GITHUB_OUTPUT
     
     - name: To run the Automation framework
