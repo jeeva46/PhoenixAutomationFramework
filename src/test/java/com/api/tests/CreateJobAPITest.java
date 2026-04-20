@@ -3,7 +3,14 @@ package com.api.tests;
 import org.hamcrest.Matchers;
 import org.testng.annotations.Test;
 
+import com.api.constant.Model;
+import com.api.constant.OEM;
+import com.api.constant.Platform;
+import com.api.constant.Problem;
+import com.api.constant.Product;
 import com.api.constant.Role;
+import com.api.constant.ServiceLocation;
+import com.api.constant.Warranty;
 import com.api.pojo.CreateJob;
 import com.api.pojo.Customer;
 import com.api.pojo.CustomerAddress;
@@ -11,6 +18,7 @@ import com.api.pojo.CustomerProduct;
 import com.api.pojo.Problems;
 import com.api.utils.AuthTokenGenerator;
 import com.api.utils.ConfigManager;
+import com.api.utils.DateTimeUtil;
 import com.api.utils.SpecUtil;
 
 import io.restassured.http.ContentType;
@@ -30,12 +38,12 @@ public class CreateJobAPITest {
 		
 		Customer customer = new Customer("ash", "a", "1234567898", "", "ash@gmail.com", "");
 		CustomerAddress customerAddress = new CustomerAddress("33a", "omr", "omr", "omr", "omr", "4321234", "India", "Tamil Nadu");
-		CustomerProduct customerProduct = new CustomerProduct("2026-03-04T18:30:00.000Z", "12028766113821", "12028766113821", "12028766113821", "2026-03-04T18:30:00.000Z", 3, 3);      
+		CustomerProduct customerProduct = new CustomerProduct(DateTimeUtil.getDateTime(10), "12024366123821", "12024366123821", "12024366123821", DateTimeUtil.getDateTime(10), Product.NEXUS_2.getCode(), Model.NEXUS_2_BLUE.getCode());      
 		List<Problems> problems = new ArrayList<Problems>();
-		Problems problem = new Problems(2, "poor battery");
+		Problems problem = new Problems(Problem.POOR_BATTERY_LIFE.getCode(), "poor battery");
 		problems.add(problem);
 		
-		CreateJob job = new CreateJob(0, 2, 1, 2, customer, customerAddress, customerProduct, problems);
+		CreateJob job = new CreateJob(ServiceLocation.SERVICE_CENTER_A.getCode(), Platform.FRONT_DESK.getCode(), Warranty.IN_WARRANTY.getCode(), OEM.GOOGLE.getCode(), customer, customerAddress, customerProduct, problems);
 		
 		
 		given()
