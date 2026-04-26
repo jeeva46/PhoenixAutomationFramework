@@ -38,7 +38,7 @@ public class CreateJobAPITest {
 		
 		Customer customer = new Customer("ash", "a", "1234567898", "", "ash@gmail.com", "");
 		CustomerAddress customerAddress = new CustomerAddress("33a", "omr", "omr", "omr", "omr", "4321234", "India", "Tamil Nadu");
-		CustomerProduct customerProduct = new CustomerProduct(DateTimeUtil.getDateTime(10), "12024366123821", "12024366123821", "12024366123821", DateTimeUtil.getDateTime(10), Product.NEXUS_2.getCode(), Model.NEXUS_2_BLUE.getCode());      
+		CustomerProduct customerProduct = new CustomerProduct(DateTimeUtil.getDateTime(10), "12024366123121", "12024366123121", "12024366123121", DateTimeUtil.getDateTime(10), Product.NEXUS_2.getCode(), Model.NEXUS_2_BLUE.getCode());      
 		List<Problems> problems = new ArrayList<Problems>();
 		Problems problem = new Problems(Problem.POOR_BATTERY_LIFE.getCode(), "poor battery");
 		problems.add(problem);
@@ -48,7 +48,6 @@ public class CreateJobAPITest {
 		
 		given()
 		.spec(SpecUtil.requestSpec(job, Role.FD))
-		.body(job)
 		.log().all()
 		.when()
 		.post("/job/create")
