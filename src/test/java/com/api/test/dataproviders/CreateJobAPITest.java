@@ -1,6 +1,7 @@
-package com.api.tests;
+package com.api.test.dataproviders;
 
 import org.hamcrest.Matchers;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.api.constant.Model;
@@ -32,23 +33,16 @@ import java.util.List;
 
 public class CreateJobAPITest {
 
-	@Test
-	public void createJobAPITest() throws IOException {
+	
+	@Test(description = "createjob api test",groups = {"e2e","regression"},
+			dataProvider = "CreateJobDataProvider",dataProviderClass = com.dataProviders.DataProvidersUtil.class)
+	public void createJobAPITest(CreateJob payload) throws IOException {
 		
-		
-		Customer customer = new Customer("ash", "a", "1234567898", "", "ash@gmail.com", "");
-		CustomerAddress customerAddress = new CustomerAddress("33a", "omr", "omr", "omr", "omr", "4321234", "India", "Tamil Nadu");
-		CustomerProduct customerProduct = new CustomerProduct(DateTimeUtil.getDateTime(10), "12024366123820", "12024366123820", "12024366123820", DateTimeUtil.getDateTime(10), Product.NEXUS_2.getCode(), Model.NEXUS_2_BLUE.getCode());      
-		List<Problems> problems = new ArrayList<Problems>();
-		Problems problem = new Problems(Problem.POOR_BATTERY_LIFE.getCode(), "poor battery");
-		problems.add(problem);
-		
-		CreateJob job = new CreateJob(ServiceLocation.SERVICE_CENTER_A.getCode(), Platform.FRONT_DESK.getCode(), Warranty.IN_WARRANTY.getCode(), OEM.GOOGLE.getCode(), customer, customerAddress, customerProduct, problems);
 		
 		
 		given()
-		.spec(SpecUtil.requestSpec(job, Role.FD))
-		.body(job)
+		.spec(SpecUtil.requestSpec(payload, Role.FD))
+		.body(payload)
 		.log().all()
 		.when()
 		.post("/job/create")
